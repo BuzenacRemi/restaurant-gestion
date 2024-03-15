@@ -5,7 +5,7 @@ const client = require('../db');
 router.post('/', async (req, res) => {
     const { id_food, amount } = req.body;
     try {
-        const result = await client.query('INSERT INTO ordered_food.js(id_food, amount) VALUES($1, $2) RETURNING *', [id_food, amount]);
+        const result = await client.query('INSERT INTO ordered_food(id_food, amount) VALUES($1, $2) RETURNING *', [id_food, amount]);
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);
@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
 // Lire tous les ordered_food.js
 router.get('/', async (req, res) => {
     try {
-        const result = await client.query('SELECT * FROM ordered_food.js');
+        const result = await client.query('SELECT * FROM ordered_food');
         res.json(result.rows);
     } catch (err) {
         console.error(err);
@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        const result = await client.query('SELECT * FROM ordered_food.js WHERE id = $1', [id]);
+        const result = await client.query('SELECT * FROM ordered_food WHERE id = $1', [id]);
         if (result.rows.length > 0) {
             res.json(result.rows[0]);
         } else {
@@ -46,7 +46,7 @@ router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { id_food, amount } = req.body;
     try {
-        const result = await client.query('UPDATE ordered_food.js SET id_food = $1, amount = $2 WHERE id = $3 RETURNING *', [id_food, amount, id]);
+        const result = await client.query('UPDATE ordered_food SET id_food = $1, amount = $2 WHERE id = $3 RETURNING *', [id_food, amount, id]);
         if (result.rows.length > 0) {
             res.json(result.rows[0]);
         } else {
@@ -62,7 +62,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     try {
-        const result = await client.query('DELETE FROM ordered_food.js WHERE id = $1 RETURNING *', [id]);
+        const result = await client.query('DELETE FROM ordered_food WHERE id = $1 RETURNING *', [id]);
         if (result.rows.length > 0) {
             res.json(result.rows[0]);
         } else {

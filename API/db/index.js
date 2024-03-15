@@ -15,7 +15,6 @@ client.connect(err => {
         console.error('Erreur de connexion à la base de données', err.stack);
     } else {
         console.log('Connecté à la base de données');
-        // Exécuter le script SQL d'initialisation
         initializeDatabase();
     }
 });
@@ -33,3 +32,5 @@ async function initializeDatabase() {
         console.error('Erreur lors de l\'initialisation de la base de données', err);
     }
 }
+
+module.exports = client;

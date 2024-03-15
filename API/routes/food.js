@@ -6,7 +6,7 @@ const client = require('../db');
 router.post('/', async (req, res) => {
     const { category, food_name, food_price } = req.body;
     try {
-        const result = await client.query('INSERT INTO food(category, food_name, price) VALUES($1, $2, $3) RETURNING *', [category, food_name, food_price]);
+        const result = await client.query('INSERT INTO food(category, food_name, food_price) VALUES($1, $2, $3) RETURNING *', [category, food_name, food_price]);
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);
@@ -43,7 +43,7 @@ router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { category, food_name, food_price } = req.body;
     try {
-        const result = await client.query('UPDATE food SET category = $1, food_name = $2, price = $3 WHERE id = $4 RETURNING *', [category, food_name, food_price, id]);
+        const result = await client.query('UPDATE food SET category = $1, food_name = $2, food_price = $3 WHERE id = $4 RETURNING *', [category, food_name, food_price, id]);
         if (result.rows.length > 0) {
             res.json(result.rows[0]);
         } else {

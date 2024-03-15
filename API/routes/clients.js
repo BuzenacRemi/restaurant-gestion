@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const client = require('../db');
 
+
 // Créer un nouveau client
 router.post('/', async (req, res) => {
     const { name, address } = req.body;
