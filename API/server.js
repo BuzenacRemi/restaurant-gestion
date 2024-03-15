@@ -8,6 +8,7 @@ app.use(express.json());
 app.use('/clients', require('./routes/clients'));
 app.use('/food', require('./routes/food'));
 app.use('/orders', require('./routes/orders'));
+app.use('/ordered_food', require('./routes/ordered_food'));
 app.use('/restaurants', require('./routes/restaurants'));
 
 app.listen(port, () => {

@@ -2,9 +2,8 @@ const express = require('express');
 const router = express.Router();
 const client = require('../db');
 
-
 // Créer un nouveau client
-router.post('/clients', async (req, res) => {
+router.post('/', async (req, res) => {
     const { name, address } = req.body;
     try {
         const result = await client.query('INSERT INTO client(name, address) VALUES($1, $2) RETURNING *', [name, address]);
@@ -16,7 +15,7 @@ router.post('/clients', async (req, res) => {
 });
 
 // Lire tous les clients
-router.get('/clients', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const result = await client.query('SELECT * FROM client');
         res.json(result.rows);
@@ -27,7 +26,7 @@ router.get('/clients', async (req, res) => {
 });
 
 // Lire un client par son ID
-router.get('/clients/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const result = await client.query('SELECT * FROM client WHERE id = $1', [id]);
@@ -41,8 +40,9 @@ router.get('/clients/:id', async (req, res) => {
         res.status(500).send("Erreur lors de la récupération du client");
     }
 });
+
 // Mettre à jour un client par son ID
-router.put('/clients/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { name, address } = req.body;
     try {
@@ -59,7 +59,7 @@ router.put('/clients/:id', async (req, res) => {
 });
 
 // Supprimer un client par son ID
-router.delete('/clients/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const result = await client.query('DELETE FROM client WHERE id = $1 RETURNING *', [id]);

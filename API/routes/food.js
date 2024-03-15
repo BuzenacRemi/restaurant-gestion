@@ -3,7 +3,7 @@ const router = express.Router();
 const client = require('../db');
 
 // Route pour récupérer tous les foods
-router.post('/food', async (req, res) => {
+router.post('/', async (req, res) => {
     const { food_name } = req.body;
     try {
         const result = await client.query('INSERT INTO food(food_name) VALUES($1) RETURNING *', [food_name]);
@@ -14,7 +14,7 @@ router.post('/food', async (req, res) => {
     }
 });
 
-router.get('/food/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const result = await client.query('SELECT * FROM food WHERE id = $1', [id]);
@@ -28,7 +28,7 @@ router.get('/food/:id', async (req, res) => {
         res.status(500).send("Erreur lors de la récupération de la nourriture");
     }
 });
-router.get('/food', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const result = await client.query('SELECT * FROM food');
         res.json(result.rows);
@@ -38,7 +38,7 @@ router.get('/food', async (req, res) => {
     }
 });
 
-router.put('/food/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { food_name } = req.body;
     try {
@@ -54,7 +54,7 @@ router.put('/food/:id', async (req, res) => {
     }
 });
 
-router.delete('/food/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const result = await client.query('DELETE FROM food WHERE id = $1 RETURNING *', [id]);
