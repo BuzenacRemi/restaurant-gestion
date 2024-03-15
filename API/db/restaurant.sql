@@ -7,12 +7,15 @@ CREATE TABLE ordered_food (
 
 CREATE TABLE food (
     id SERIAL PRIMARY KEY,
-    food_name VARCHAR(255) NOT NULL
+    category INT NOT NULL,
+    food_name VARCHAR(255) NOT NULL,
+    food_price INT NOT NULL
 );
 
 CREATE TABLE restaurant (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    zip_code VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE client (

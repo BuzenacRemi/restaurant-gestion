@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const client = require('../db');
 
-// Route pour récupérer tous les foods
+// Route pour récupérer tous les aliments
 router.post('/', async (req, res) => {
-    const { food_name } = req.body;
+    const { category, food_name, food_price } = req.body;
     try {
-        const result = await client.query('INSERT INTO food(food_name) VALUES($1) RETURNING *', [food_name]);
+        const result = await client.query('INSERT INTO food(category, food_name, price) VALUES($1, $2, $3) RETURNING *', [category, food_name, food_price]);
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);
@@ -28,6 +28,7 @@ router.get('/:id', async (req, res) => {
         res.status(500).send("Erreur lors de la récupération de la nourriture");
     }
 });
+
 router.get('/', async (req, res) => {
     try {
         const result = await client.query('SELECT * FROM food');
@@ -40,9 +41,9 @@ router.get('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { food_name } = req.body;
+    const { category, food_name, food_price } = req.body;
     try {
-        const result = await client.query('UPDATE food SET food_name = $1 WHERE id = $2 RETURNING *', [food_name, id]);
+        const result = await client.query('UPDATE food SET category = $1, food_name = $2, price = $3 WHERE id = $4 RETURNING *', [category, food_name, food_price, id]);
         if (result.rows.length > 0) {
             res.json(result.rows[0]);
         } else {

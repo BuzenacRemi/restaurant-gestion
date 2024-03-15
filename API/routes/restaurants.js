@@ -2,13 +2,11 @@ const express = require('express');
 const router = express.Router();
 const client = require('../db');
 
-// Route pour récupérer tous les restaurants
-
 // Créer un nouveau restaurant
-router.post('/restaurants', async (req, res) => {
-    const { name } = req.body;
+router.post('/', async (req, res) => {
+    const { name, zip_code } = req.body;
     try {
-        const result = await client.query('INSERT INTO restaurant(name) VALUES($1) RETURNING *', [name]);
+        const result = await client.query('INSERT INTO restaurant(name, zip_code) VALUES($1, $2) RETURNING *', [name, zip_code]);
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);
@@ -17,7 +15,7 @@ router.post('/restaurants', async (req, res) => {
 });
 
 // Lire tous les restaurants
-router.get('/restaurants', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const result = await client.query('SELECT * FROM restaurant');
         res.json(result.rows);
@@ -28,8 +26,7 @@ router.get('/restaurants', async (req, res) => {
 });
 
 // Lire un restaurant par son ID
-
-router.get('/restaurants/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const result = await client.query('SELECT * FROM restaurant WHERE id = $1', [id]);
@@ -42,14 +39,14 @@ router.get('/restaurants/:id', async (req, res) => {
         console.error(err);
         res.status(500).send("Erreur lors de la récupération du restaurant");
     }
-
 });
+
 // Mettre à jour un restaurant par son ID
-router.put('/restaurants/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { name } = req.body;
+    const { name, zip_code } = req.body;
     try {
-        const result = await client.query('UPDATE restaurant SET name = $1 WHERE id = $2 RETURNING *', [name, id]);
+        const result = await client.query('UPDATE restaurant SET name = $1, zip_code = $2 WHERE id = $3 RETURNING *', [name, zip_code, id]);
         if (result.rows.length > 0) {
             res.json(result.rows[0]);
         } else {
@@ -62,7 +59,7 @@ router.put('/restaurants/:id', async (req, res) => {
 });
 
 // Supprimer un restaurant par son ID
-router.delete('/restaurants/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const result = await client.query('DELETE FROM restaurant WHERE id = $1 RETURNING *', [id]);
