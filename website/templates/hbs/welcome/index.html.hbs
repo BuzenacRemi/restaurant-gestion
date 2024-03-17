@@ -1,0 +1,19 @@
+<section id="restos">
+    <h3>Selectionner un restaurant</h3>
+    <form id="restoForm">
+        <select id="restoSelect">
+            {{#each restos}}
+                <option value="/resto/{{ this.id }}">{{ this.name }}</option>
+            {{/each}}
+        </select>
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </form>
+</section>
+
+<script>
+    document.getElementById('restoForm').onsubmit = function(e) {
+        e.preventDefault();
+        var selectedResto = document.getElementById('restoSelect').value;
+        window.location.href = selectedResto;
+    };
+</script>

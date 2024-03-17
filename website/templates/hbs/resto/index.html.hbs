@@ -1,0 +1,28 @@
+<h4>Menu</h4>
+{{#each menu as |item|}}
+    <div class="menu-item">
+        <p>{{item.name}} - {{item.price}} euros</p>
+        <button onclick="addToCart('{{item.id}}', 1)">Ajouter</button>
+    </div>
+{{/each}}
+<script>
+    function addToCart(foodId, quantity) {
+        fetch('/cart/add_to_cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ food_id: foodId, quantity: quantity }),
+        })
+                .then(response => response.text())
+                .then(data => console.log(data));
+    }
+</script>
+
+
+
+
+
+
+
+
