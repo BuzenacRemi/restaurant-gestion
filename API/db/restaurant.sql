@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS ordered_food (
 
 CREATE TABLE IF NOT EXISTS food (
     id SERIAL PRIMARY KEY,
+    id_restaurant INT NOT NULL,
     category INT NOT NULL,
     food_name VARCHAR(255) NOT NULL,
     food_price INT NOT NULL

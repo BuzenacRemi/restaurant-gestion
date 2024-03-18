@@ -4,9 +4,9 @@ const client = require('../db');
 
 // Route pour récupérer tous les aliments
 router.post('/', async (req, res) => {
-    const { category, food_name, food_price } = req.body;
+    const { category,id_restaurant, food_name, food_price } = req.body;
     try {
-        const result = await client.query('INSERT INTO food(category, food_name, food_price) VALUES($1, $2, $3) RETURNING *', [category, food_name, food_price]);
+        const result = await client.query('INSERT INTO food(category, id_restaurant, food_name, food_price) VALUES($1, $2, $3, $4) RETURNING *', [category,id_restaurant, food_name, food_price]);
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);
@@ -32,6 +32,17 @@ router.get('/:id', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const result = await client.query('SELECT * FROM food');
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Erreur lors de la récupération de la nourriture");
+    }
+});
+
+router.get('/restaurant/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await client.query('SELECT * FROM food WHERE id_restaurant = $1', [id]);
         res.json(result.rows);
     } catch (err) {
         console.error(err);

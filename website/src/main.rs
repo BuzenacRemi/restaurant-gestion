@@ -7,6 +7,7 @@ mod session;
 mod cart;
 mod objects;
 mod statics;
+mod api;
 
 
 use rocket::fs::{FileServer, relative};
@@ -19,22 +20,14 @@ use std::{env, fs};
 use std::path::Path;
 
 #[get("/")]
-pub fn index() -> Template {
+pub async fn index() -> Template {
+    let restos = api::restaurants_api::get_all_restaurants().await.unwrap();
     Template::render("hbs/welcome/layout", context! {
-        restos : [HashMap::from([
-            ("name", "Resto 1"),
-            ("id", "42"),
-        ]), HashMap::from([
-            ("name", "Resto 2"),
-            ("id", "43"),
-        ]), HashMap::from([
-            ("name", "Resto 3"),
-            ("id", "44"),
-        ],)]
+        restos : restos.0,
     })
 }
 #[launch]
-fn rocket() -> _ {
+async fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![index])
         .mount("/static", routes![statics::second])
@@ -43,5 +36,5 @@ fn rocket() -> _ {
         .mount("/about", routes![about::index])
         .mount("/cart", routes![cart::add_to_cart, cart::view_cart, cart::remove_from_cart])
         .register("/", catchers![hbs::not_found])
-        .attach(Template::fairing())
+        .attach(Template::fairing ())
 }
