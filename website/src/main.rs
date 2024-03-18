@@ -1,17 +1,20 @@
 #[macro_use] extern crate rocket;
 
+use std::collections::HashMap;
+use std::{env, fs};
+use std::path::Path;
+use std::time::Duration;
+
+use rocket::http::CookieJar;
+use rocket::response::content::RawHtml;
+use rocket_dyn_templates::{context, Template};
+
 mod hbs;
 mod resto;
 mod about;
 mod session;
 mod cart;
 mod objects;
-
-use std::collections::HashMap;
-use std::time::Duration;
-use rocket::http::CookieJar;
-use rocket::response::content::RawHtml;
-use rocket_dyn_templates::{context, Template};
 
 #[get("/")]
 pub fn index() -> Template {
