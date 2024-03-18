@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sélection de Restaurant</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Ajoutez vos styles personnalisés ici si nécessaire */
+        #error {
+            margin-top: 225px;
+            margin-bottom: 300px;
+        }
+        #error h1 {
+            font-size: 50px;
+            font-weight: 1000;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+<section id="error" class="container">
+    <h1>Error 404: Hey! There's nothing here.</h1>
+    The page at {{ uri }} does not exist!
+</section>
+</body>
+</html>

@@ -1,13 +1,32 @@
-<h3>Ma commande</h3>
-{{#each cart as |food|}}
-    <div class="menu-item">
-        <p>{{food.name}} - {{food.price}} euros - Qte
-            <button onclick="removeFromCart('{{food.id}}', 1)">Retirer</button>
-            {{this.quantity}}
-            <button onclick="addToCart('{{food.id}}', 1)">Ajouter</button>
-        </p>
-    </div>
-{{/each}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sélection de Restaurant</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Ajoutez vos styles personnalisés ici si nécessaire */
+        #commande {
+            margin-top: 75px;
+            margin-bottom: 395px;
+        }
+    </style>
+</head>
+<section id="commande" class="container">
+    <h3>Ma commande</h3>
+    {{#each cart as |food|}}
+        <div class="menu-item">
+            <p>{{food.name}} - {{food.price}} euros - Qte
+                <button type="submit" class="btn btn-primary" onclick="removeFromCart('{{food.id}}', 1)">Retirer</button>
+                {{this.quantity}}
+                <button type="submit" class="btn btn-primary" onclick="addToCart('{{food.id}}', 1)">Ajouter</button>
+            </p>
+        </div>
+    {{/each}}
+</section>
+
 <script>
      function removeFromCart(foodId, quantity) {
          fetch('/cart/remove_from_cart', {

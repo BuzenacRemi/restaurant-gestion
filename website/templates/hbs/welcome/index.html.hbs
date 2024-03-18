@@ -1,15 +1,39 @@
-<section id="restos">
-    <h3>Selectionner un restaurant</h3>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sélection de Restaurant</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Ajoutez vos styles personnalisés ici si nécessaire */
+        #restos {
+            margin-top: 150px;
+            margin-bottom: 330px;
+        }
+    </style>
+</head>
+<body>
+<section id="restos" class="container">
+    <h3>Sélectionner un restaurant</h3>
     <form id="restoForm">
-        <select id="restoSelect">
-            {{#each restos}}
-                <option value="/resto/{{ this.id }}">{{ this.name }}</option>
-            {{/each}}
-        </select>
+        <div class="form-group">
+            <select id="restoSelect" class="form-control">
+                <option value="">Choisissez votre restaurant...</option>
+                <optgroup label="Restaurant">
+                {{#each restos}}
+                    <option value="/resto/{{ this.id }}">{{ this.name }}</option>
+                {{/each}}
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Valider</button>
     </form>
 </section>
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     document.getElementById('restoForm').onsubmit = function(e) {
         e.preventDefault();
@@ -17,3 +41,5 @@
         window.location.href = selectedResto;
     };
 </script>
+</body>
+</html>
