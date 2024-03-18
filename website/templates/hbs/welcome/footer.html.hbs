@@ -2,12 +2,18 @@
     footer {
         background-color: #f8f9fa;
         padding: 25px 0;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
     }
     footer h3 {
         color: #333;
     }
-    footer p {
+    footer a {
         color: #666;
+    }
+    footer a:hover {
+        color: #333;
     }
     footer ul {
         list-style: none;
@@ -16,23 +22,12 @@
     footer ul li {
         margin-bottom: 10px;
     }
-    footer a {
-        color: #666;
-    }
-    footer a:hover {
-        color: #333;
-    }
-    footer p {
-        margin-bottom: 0;
-    }
-    footer .container {
+    footer .container > .row {
+        margin: 0;
         padding: 0;
     }
-    footer .row {
-        margin: 0;
-    }
 </style>
-<footer>
+<footer class="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
