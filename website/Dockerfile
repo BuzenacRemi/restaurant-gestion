@@ -11,8 +11,10 @@ COPY --from=builder /usr/local/cargo/bin/website /usr/local/bin/website
 WORKDIR /usr/local/bin
 
 COPY --from=builder /usr/src/website/templates ./templates
+COPY --from=builder /usr/src/website/assets ./assets
 
 RUN chmod -R 755 ./templates
+RUN chmod -R 755 ./assets
 
 RUN ls -la /usr/local/bin
 

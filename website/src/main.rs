@@ -38,7 +38,7 @@ fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![index])
         .mount("/static", routes![statics::second])
-        .mount("/static", FileServer::from(relative!("assets")))
+        .mount("/static", FileServer::from(Path::new("/usr/local/bin/assets")))
         .mount("/resto", routes![resto::index])
         .mount("/about", routes![about::index])
         .mount("/cart", routes![cart::add_to_cart, cart::view_cart, cart::remove_from_cart])
