@@ -1,10 +1,37 @@
-<h4>Menu</h4>
-{{#each menu as |item|}}
-    <div class="menu-item">
-        <p>{{item.name}} - {{item.price}} euros</p>
-        <button onclick="addToCart('{{item.id}}', 1)">Ajouter</button>
-    </div>
-{{/each}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sélection de Restaurant</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Ajoutez vos styles personnalisés ici si nécessaire */
+        #menu {
+            margin-top: 30px;
+            margin-left: 250px;
+            margin-bottom: 230px;
+        }
+        .menu-item {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<section id="menu" class="container">
+    <h4>Menu Disponible :</h4>
+    {{#each menu as |item|}}
+        <div class="menu-item">
+            <p>{{item.name}} - {{item.price}} euros</p>
+            <button type="submit" class="btn btn-primary" onclick="addToCart()">Ajouter</button>
+        </div>
+    {{/each}}
+</section>
+
+
 <script>
     function addToCart(foodId, quantity) {
         fetch('/cart/add_to_cart', {

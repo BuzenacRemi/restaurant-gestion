@@ -1,12 +1,15 @@
 #[macro_use] extern crate rocket;
 
+
 mod hbs;
 mod resto;
 mod about;
 mod session;
 mod cart;
 mod objects;
+mod statics;
 
+use rocket::fs::{FileServer, relative};
 use std::collections::HashMap;
 use std::time::Duration;
 use rocket::http::CookieJar;
@@ -32,9 +35,11 @@ pub fn index() -> Template {
 fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![index])
+        .mount("/static", routes![statics::second])
+        .mount("/static", FileServer::from(relative!("assets")))
         .mount("/resto", routes![resto::index])
         .mount("/about", routes![about::index])
         .mount("/cart", routes![cart::add_to_cart, cart::view_cart, cart::remove_from_cart])
-        .register("/hbs", catchers![hbs::not_found])
+        .register("/", catchers![hbs::not_found])
         .attach(Template::fairing())
 }
