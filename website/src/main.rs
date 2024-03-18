@@ -1,6 +1,5 @@
 #[macro_use] extern crate rocket;
 
-
 mod hbs;
 mod resto;
 mod about;
@@ -9,12 +8,15 @@ mod cart;
 mod objects;
 mod statics;
 
+
 use rocket::fs::{FileServer, relative};
 use std::collections::HashMap;
 use std::time::Duration;
 use rocket::http::CookieJar;
 use rocket::response::content::RawHtml;
 use rocket_dyn_templates::{context, Template};
+use std::{env, fs};
+use std::path::Path;
 
 #[get("/")]
 pub fn index() -> Template {
