@@ -1,12 +1,18 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <title>Restaurants - {{name}}</title>
-  </head>
-  <body>
-    {{> hbs/resto/nav}}
-    {{> hbs/resto/header}}
-    {{> hbs/resto/index}}
-    {{> hbs/resto/footer}}
-  </body>
+</head>
+<body>
+    <header>
+        {{> hbs/resto/nav}}
+        {{> hbs/resto/header}}
+    </header>
+    <main class="flex-fill">
+        {{> hbs/resto/index}}
+    </main>
+    <footer class="mt-auto">
+        {{> hbs/resto/footer}}
+    </footer>
+</body>
 </html>

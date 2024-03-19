@@ -6,31 +6,22 @@
     <title>Sélection de Restaurant</title>
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         /* Ajoutez vos styles personnalisés ici si nécessaire */
         #commande {
-            margin-top: 175px;
-            display: flex;
-            flex-direction: column;
-            min-height: 50vh;
+            margin-top: 75px;
         }
     </style>
 </head>
-<section id="commande" class="container">
-    <h3>Ma commande</h3>
-    {{#each cart as |food|}}
-        <div class="menu-item">
-            <p>{{food.name}} - {{food.price}} euros - Qte
-                <button type="submit" class="btn btn-primary" onclick="removeFromCart('{{food.id}}', 1)">Retirer</button>
-                {{this.quantity}}
-                <button type="submit" class="btn btn-primary" onclick="addToCart('{{food.id}}', 1)">Ajouter</button>
-            </p>
-        </div>
-    {{/each}}
-</section>
+{{#each cart as |food|}}
+    <div class="menu-item">
+        <p>{{food.name}} - {{food.price}} euros - Qte
+            <button type="submit" class="btn btn-primary" onclick="removeFromCart('{{food.id}}', 1)">Retirer</button>
+            {{this.quantity}}
+            <button type="submit" class="btn btn-primary" onclick="addToCart('{{food.id}}', 1)">Ajouter</button>
+        </p>
+    </div>
+{{/each}}
 
 <script>
      function removeFromCart(foodId, quantity) {

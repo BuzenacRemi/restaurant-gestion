@@ -6,29 +6,46 @@
     <title>Sélection de Restaurant</title>
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
     <style>
         /* Ajoutez vos styles personnalisés ici si nécessaire */
+        .row {
+            margin-top: 75px;
+            margin-left: 75px;
+
+        }
         #menu {
-            margin-top: 30px;
-            margin-left: 250px;
+            display: flex;
+            flex-direction: column;
+            min-height: 50vh;
         }
-        .menu-item {
-            margin-left: 25px;
-            margin-bottom: 20px;
-        }
+
     </style>
 </head>
 
 <body>
 <section id="menu" class="container">
-    <h4>Menu Disponible :</h4>
-    {{#each menu as |item|}}
-        <div class="menu-item">
-            <p>{{item.name}} - {{item.price}} euros</p>
-            <button type="submit" class="btn btn-primary" onclick="addToCart()">Ajouter</button>
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <h4>Menu Disponible :</h4>
+            {{#each menu as |item|}}
+                <div class="menu-item">
+                    <p>{{item.name}} - {{item.price}} euros</p>
+                    <button type="submit" class="btn btn-primary" onclick="addToCart()">Ajouter</button>
+                </div>
+            {{/each}}
         </div>
-    {{/each}}
+        <div class="col-sm-12 col-md-6">
+            <div class="container" id="cart">
+                <h4>Votre Panier :</h4>
+                <iframe class ="border-0" src="/cartifram"></iframe>
+            </div>
+        </div>
+    </div>
 </section>
+
 
 
 <script>
