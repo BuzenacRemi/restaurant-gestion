@@ -6,8 +6,10 @@ const client = require('../db');
 // Créer un nouveau client
 router.post('/', async (req, res) => {
     const { name, address } = req.body;
+    console.log(name, address);
+
     try {
-        const result = await client.query('INSERT INTO client(name, address) VALUES($1, $2) RETURNING *', [name, address]);
+        const result = await client.query('INSERT INTO client(id, name, address) VALUES(DEFAULT, $1, $2) RETURNING *', [name, address]);
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);
@@ -31,6 +33,21 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const result = await client.query('SELECT * FROM client WHERE id = $1', [id]);
+        if (result.rows.length > 0) {
+            res.json(result.rows[0]);
+        } else {
+            res.status(404).send("Client non trouvé");
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Erreur lors de la récupération du client");
+    }
+});
+
+router.put('/:name', async (req, res) => {
+    const { name } = req.params;
+    try {
+        const result = await client.query('SELECT * FROM client WHERE name = $1', [name]);
         if (result.rows.length > 0) {
             res.json(result.rows[0]);
         } else {

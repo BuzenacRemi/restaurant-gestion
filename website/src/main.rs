@@ -34,7 +34,7 @@ async fn rocket() -> _ {
         .mount("/static", FileServer::from(Path::new("/usr/local/bin/assets")))
         .mount("/resto", routes![resto::index])
         .mount("/about", routes![about::index])
-        .mount("/cart", routes![cart::add_to_cart, cart::view_cart, cart::remove_from_cart])
+        .mount("/cart", routes![cart::add_to_cart, cart::view_cart, cart::remove_from_cart, cart::checkout])
         .register("/", catchers![hbs::not_found])
         .attach(Template::fairing ())
 }

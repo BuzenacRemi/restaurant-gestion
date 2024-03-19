@@ -3,13 +3,13 @@ use rocket::serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Restaurant {
-    id: Option<i32>, // Utilisé pour des opérations qui requièrent un identifiant
-    name: String,
+    id: Option<i32>,
+    pub(crate) name: String,
     zip_code: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Restaurants(pub(crate) Vec<Restaurant>); // Pour encapsuler une liste de restaurants
+pub struct Restaurants(pub(crate) Vec<Restaurant>);
 
 pub async fn create_restaurant(name: String, zip_code: String) -> Result<Restaurant, Error> {
     let client = Client::new();

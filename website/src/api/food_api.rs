@@ -1,13 +1,14 @@
 use reqwest::{Client, Error};
 use rocket::serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Food {
-    id: Option<i32>,
+    pub(crate) id: Option<i32>,
     category: i32,
     food_name: String,
     food_price: i32,
 }
+
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Foods(pub(crate) Vec<Food>);

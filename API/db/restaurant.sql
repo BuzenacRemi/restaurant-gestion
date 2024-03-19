@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS ordered_food (
     id SERIAL PRIMARY KEY,
+    id_order INT NOT NULL,
     id_food INT NOT NULL,
     amount INT NOT NULL,
     UNIQUE (id_food)
@@ -28,21 +29,8 @@ CREATE TABLE IF NOT EXISTS client (
 CREATE TABLE IF NOT EXISTS "order" (
     id SERIAL PRIMARY KEY,
     id_client INT NOT NULL,
-    id_restaurant INT NOT NULL,
-    id_ordered_food INT NOT NULL,
-    FOREIGN KEY (id_client) REFERENCES client (id),
-    FOREIGN KEY (id_restaurant) REFERENCES restaurant (id),
-    FOREIGN KEY (id_ordered_food) REFERENCES ordered_food (id)
+    id_ordered_food SERIAL NOT NULL,
+    FOREIGN KEY (id_client) REFERENCES client (id)
 );
 
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_constraint
-        WHERE conname = 'fk_ordered_food_food'
-    ) THEN
-ALTER TABLE ordered_food ADD CONSTRAINT fk_ordered_food_food FOREIGN KEY (id_food) REFERENCES food (id);
-END IF;
-END
-$$;
 

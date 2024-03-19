@@ -1,4 +1,5 @@
 pub mod food_api;
 pub mod restaurants_api;
-mod order_api;
-mod cart_api;
+pub(crate) mod order_api;
+pub(crate) mod client_api;
+pub mod ordered_food_api;
