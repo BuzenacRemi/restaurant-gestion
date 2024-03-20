@@ -23,7 +23,7 @@
                 <option value="">Choisissez votre restaurant...</option>
                 <optgroup label="Restaurant">
                 {{#each restos}}
-                    <option value="/resto/{{ this.id }}">{{ this.name }}</option>
+                    <option value="/resto/{{ this.id }}">{{this.zip_code }} - {{ this.name }}</option>
                 {{/each}}
             </select>
         </div>

@@ -1,0 +1,16 @@
+{{#each orders as |order|}}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Order #{{order.id}}</h3>
+    </div>
+    <div class="panel-body">
+        <p>Order Id: {{order.0.id}}</p>
+        <p>Foods :</p>
+        <ul>
+          {{#each order.1.foods as |food|}}
+            <li>{{food.name}}</li>
+          {{/each}}
+    </div>
+  </div>
+{{/each}}
+```

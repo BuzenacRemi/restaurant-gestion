@@ -5,9 +5,9 @@ const client = require('../db');
 
 // Créer une nouvelle commande
 router.post('/', async (req, res) => {
-    const { id_client, id_restaurant, id_ordered_food } = req.body;
+    const { id_client } = req.body;
     try {
-        const result = await client.query('INSERT INTO "order"(id_client, id_restaurant, id_ordered_food) VALUES($1, $2, $3) RETURNING *', [id_client, id_restaurant, id_ordered_food]);
+        const result = await client.query('INSERT INTO "order"(id, id_client, id_ordered_food) VALUES(DEFAULT, $1, DEFAULT) RETURNING *', [id_client]);
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);

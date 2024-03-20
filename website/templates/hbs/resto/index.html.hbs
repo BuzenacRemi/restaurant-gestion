@@ -7,7 +7,6 @@
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Ajoutez vos styles personnalisés ici si nécessaire */
         #menu {
             margin-top: 30px;
             margin-left: 250px;
@@ -25,8 +24,8 @@
     <h4>Menu Disponible :</h4>
     {{#each menu as |item|}}
         <div class="menu-item">
-            <p>{{item.name}} - {{item.price}} euros</p>
-            <button type="submit" class="btn btn-primary" onclick="addToCart()">Ajouter</button>
+            <p>{{item.food_name}} - {{item.food_price}} euros</p>
+            <button type="submit" class="btn btn-primary" onclick="addToCart({{item.id}},1)">Ajouter</button>
         </div>
     {{/each}}
 </section>

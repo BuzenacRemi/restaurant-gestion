@@ -4,7 +4,7 @@ COPY . .
 RUN cargo install --path .
 
 FROM debian:latest
-RUN apt-get update && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt install -y openssl && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /usr/local/cargo/bin/website /usr/local/bin/website
 

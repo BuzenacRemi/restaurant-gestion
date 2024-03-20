@@ -8,35 +8,25 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /* Ajoutez vos styles personnalisés ici si nécessaire */
-        #commande {
+        #formClient {
             margin-top: 75px;
             margin-bottom: 395px;
         }
     </style>
 </head>
-<section id="commande" class="container">
-    <h3>Ma commande</h3>
-    {{#each cart as |food|}}
-        <div class="menu-item">
-            <p>{{food.food.food_name}} - {{food.food.food_price}} euros - Qte
-                <button type="submit" class="btn btn-primary" onclick="removeFromCart({{food.food.id}}, 1)">Retirer</button>
-                <p id="qty">{{this.quantity}}<p>
-                <button type="submit" class="btn btn-primary" onclick="addToCart({{food.food.id}}, 1)">Ajouter</button>
-            </p>
-        </div>
-    {{/each}}
-</section>
 <section id="formClient" class="container">
     <h3/>Informations client</h3>
-    <form method="post" action="/cart/checkout">
+    <form action="/client" method="post">
         <div class="form-group">
             <label for="nom">Nom</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" id="nom" name="nom" required>
             <label for="adresse">Adresse</label>
-            <input type="text" class="form-control" id="address" name="address" required>
+            <input type="text" class="form-control" id="adresse" name="adresse" required>
         </div>
-        <button type="submit" class="btn btn-primary">Valider ma commande</button>
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </form>
 </section>
+<button type="submit" class="btn btn-primary" onclick="checkout()">Valider ma commande</button>
 
 <script>
      function removeFromCart(foodId, quantity) {
@@ -49,7 +39,6 @@
          })
                  .then(response => response.text())
                  .then(data => console.log(data));
-         document.getElementById('qty').innerHTML = "0";
      }
 
      function addToCart(foodId, quantity) {
@@ -62,8 +51,17 @@
          })
                  .then(response => response.text())
                  .then(data => console.log(data));
-         let qte = document.getElementById('qty').innerHTML;
-         document.getElementById('qty').innerHTML = parseInt(qte) + 1;
+     }
+
+     function checkout() {
+         fetch('/cart/checkout', {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json',
+             },
+         })
+                 .then(response => response.text())
+                 .then(data => console.log(data));
      }
  </script>
 
