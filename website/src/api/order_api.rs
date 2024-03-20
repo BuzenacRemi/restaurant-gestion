@@ -4,8 +4,8 @@ use rocket::serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Order {
     pub id: Option<i32>,
-    pub order_id: Option<i32>,
-    pub user_id: i32,
+    pub id_ordered_food: Option<i32>,
+    pub id_client: i32,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -13,11 +13,11 @@ pub struct Orders(pub Vec<Order>);
 
 pub async fn create_order(user: i32) -> Result<Order, Error> {
     let client = Client::new();
-
+    println!("Creating order for user: {}", user);
     let order = Order {
         id: None,
-        order_id: None,
-        user_id: user,
+        id_ordered_food: None,
+        id_client: user,
 
     };
     let res = client.post("http://api:6969/orders")

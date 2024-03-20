@@ -3,9 +3,10 @@ const router = express.Router();
 const client = require('../db');
 
 router.post('/', async (req, res) => {
-    const { id, id_client, id_food } = req.body;
+    const { id_order, id_food, amount } = req.body;
+    console.log(id_order, id_food, amount);
     try {
-        const result = await client.query('INSERT INTO ordered_food(id, id_client, id_ordered_food) VALUES($1, $2, $3) RETURNING *', [id, id_client, id_food]);
+        const result = await client.query('INSERT INTO ordered_food(id, id_order, id_food, amount) VALUES(DEFAULT,$1, $2, $3) RETURNING *', [id_order, id_food, amount]);
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);

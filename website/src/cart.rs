@@ -47,11 +47,11 @@ pub async fn remove_from_cart(cookies: &CookieJar<'_>, cart_item: Json<CartItem>
 }
 
 #[post("/checkout", data="<client>")]
-pub async fn checkout(cookies: &CookieJar<'_>, client: Form<Client>) {
+pub async fn checkout(cookies: &CookieJar<'_>, client: Form<Client>) -> Redirect{
     let client = create_client(client.name.to_string(), client.address.to_string()).await;
 
     let order = create_order(client.unwrap().id.unwrap()).await.unwrap();
-    println!("Order id: {}", order.id.unwrap());
+
 
     let mut cart_hash: HashMap<i32, i32> = HashMap::new();
     cookies.get_private("cart").map(|cookie| {
@@ -62,9 +62,12 @@ pub async fn checkout(cookies: &CookieJar<'_>, client: Form<Client>) {
         }
     });
 
+
     for (food_id, quantity) in cart_hash {
-        create_ordered_food(order.id.unwrap(), food_id, quantity).await.unwrap();
+        create_ordered_food(order.id_ordered_food.unwrap(), food_id, quantity).await.unwrap();
     }
+
+    Redirect::to("/panel")
 }
 
 #[get("/")]

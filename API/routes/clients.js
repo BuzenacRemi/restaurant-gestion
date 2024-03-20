@@ -6,8 +6,6 @@ const client = require('../db');
 // Créer un nouveau client
 router.post('/', async (req, res) => {
     const { name, address } = req.body;
-    console.log(name, address);
-
     try {
         const result = await client.query('INSERT INTO client(id, name, address) VALUES(DEFAULT, $1, $2) RETURNING *', [name, address]);
         res.json(result.rows[0]);

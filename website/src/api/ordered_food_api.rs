@@ -2,17 +2,17 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct OrderedFood {
-    pub order_id: i32,
-    pub food_id: i32,
-    pub quantity: i32,
+    pub id_order: i32,
+    pub id_food: i32,
+    pub amount: i32,
 }
 
-pub async fn create_ordered_food(order_id: i32, food_id: i32, quantity: i32) -> Result<OrderedFood, reqwest::Error> {
+pub async fn create_ordered_food(order_id: i32, id_food: i32, amount: i32) -> Result<OrderedFood, reqwest::Error> {
     let client = reqwest::Client::new();
     let ordered_food = OrderedFood {
-        order_id,
-        food_id,
-        quantity,
+        id_order: order_id,
+        id_food: id_food,
+        amount: amount,
     };
     let res = client.post("http://api:6969/ordered_food")
         .json(&ordered_food)

@@ -8,6 +8,7 @@ mod cart;
 mod objects;
 mod statics;
 mod api;
+mod panel;
 
 
 use rocket::fs::{FileServer, relative};
@@ -35,6 +36,7 @@ async fn rocket() -> _ {
         .mount("/resto", routes![resto::index])
         .mount("/about", routes![about::index])
         .mount("/cart", routes![cart::add_to_cart, cart::view_cart, cart::remove_from_cart, cart::checkout])
+        .mount("/panel", routes![panel::index])
         .register("/", catchers![hbs::not_found])
         .attach(Template::fairing ())
 }
