@@ -67,7 +67,9 @@ pub async fn checkout(cookies: &CookieJar<'_>, client: Form<Client>) -> Redirect
         create_ordered_food(order.id_ordered_food.unwrap(), food_id, quantity).await.unwrap();
     }
 
-    Redirect::to("/panel")
+    cookies.remove_private("cart");
+
+    Redirect::to("/")
 }
 
 #[get("/")]

@@ -29,8 +29,7 @@ CREATE TABLE IF NOT EXISTS client (
 CREATE TABLE IF NOT EXISTS "order" (
     id SERIAL PRIMARY KEY,
     id_client INT NOT NULL,
-    id_ordered_food SERIAL NOT NULL,
-    FOREIGN KEY (id_client) REFERENCES client (id)
+    id_ordered_food SERIAL NOT NULL
 );
 
 
