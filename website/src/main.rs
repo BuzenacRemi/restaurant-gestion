@@ -7,6 +7,7 @@ mod session;
 mod cart;
 mod objects;
 mod statics;
+mod cartiframe;
 mod api;
 
 
@@ -31,9 +32,11 @@ async fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![index])
         .mount("/static", routes![statics::second])
-        .mount("/static", FileServer::from(Path::new("/usr/local/bin/assets")))
+        /*/usr/local/bin/ */
+        .mount("/static", FileServer::from(Path::new("assets")))
         .mount("/resto", routes![resto::index])
         .mount("/about", routes![about::index])
+        .mount("/cartifram", routes![cartiframe::add_to_cart, cartiframe::view_cart, cartiframe::remove_from_cart])
         .mount("/cart", routes![cart::add_to_cart, cart::view_cart, cart::remove_from_cart, cart::checkout])
         .register("/", catchers![hbs::not_found])
         .attach(Template::fairing ())
