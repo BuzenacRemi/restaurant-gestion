@@ -45,7 +45,7 @@ R: Vous pouvez mettre à jour l'application en exécutant les commandes suivante
 ```bash
 git pull
 docker-compose down
-docker-compose build --up
+docker-compose up --build
 ```
 
 Q: Que faire si j'obtiens une erreur lors de l'exécution de docker-compose up -d ?

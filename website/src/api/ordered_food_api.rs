@@ -33,3 +33,13 @@ pub async fn get_ordered_food(id: i32) -> Result<OrderedFood, reqwest::Error> {
     Ok(res)
 }
 
+pub async fn get_all_ordered_foods() -> Result<Vec<OrderedFood>, reqwest::Error> {
+    let client = reqwest::Client::new();
+    let res = client.get("http://api:6969/ordered_food")
+        .send()
+        .await?
+        .json::<Vec<OrderedFood>>()
+        .await?;
+    Ok(res)
+}
+

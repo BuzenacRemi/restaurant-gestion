@@ -24,9 +24,7 @@
     {{#each cart as |food|}}
         <div class="menu-item">
             <p>{{food.food.food_name}} - {{food.food.food_price}} euros - Qte
-                <button type="submit" class="btn btn-primary" onclick="removeFromCart({{food.food.id}}, 1)">Retirer</button>
-                <p id="qty">{{this.quantity}}<p>
-                <button type="submit" class="btn btn-primary" onclick="addToCart({{food.food.id}}, 1)">Ajouter</button>
+                <button type="submit" class="btn btn-primary" onclick="removeFromCart({{food.food.id}}, 1)">Retirer</button><p id="qty">{{this.quantity}}</p><button type="submit" class="btn btn-primary" onclick="addToCart({{food.food.id}}, 1)">Ajouter</button>
             </p>
         </div>
     {{/each}}
@@ -55,6 +53,7 @@
                  .then(response => response.text())
                  .then(data => console.log(data));
          document.getElementById('qty').innerHTML = "0";
+         document.getElementById('').contentWindow.location.reload();
      }
 
      function addToCart(foodId, quantity) {

@@ -9,6 +9,7 @@ mod objects;
 mod statics;
 mod cartiframe;
 mod api;
+mod panel;
 
 
 use rocket::fs::{FileServer, relative};
@@ -37,6 +38,7 @@ async fn rocket() -> _ {
         .mount("/resto", routes![resto::index])
         .mount("/about", routes![about::index])
         .mount("/cartifram", routes![cartiframe::add_to_cart, cartiframe::view_cart, cartiframe::remove_from_cart])
+        .mount("/panel", routes![panel::index])
         .mount("/cart", routes![cart::add_to_cart, cart::view_cart, cart::remove_from_cart, cart::checkout])
         .register("/", catchers![hbs::not_found])
         .attach(Template::fairing ())

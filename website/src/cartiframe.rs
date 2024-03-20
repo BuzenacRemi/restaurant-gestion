@@ -28,7 +28,7 @@ pub async fn remove_from_cart(cookies: &CookieJar<'_>, cart_item: Json<CartItem>
         None => Cart::new(),
     };
 
-    cart.remove_item(cart_item.food_id.clone(), cart_item.quantity);
+    cart.remove_item(cart_item.food_id.clone());
     cookies.add_private(Cookie::new("cart", serde_json::to_string(&cart).unwrap()));
 
     "Item removed from cart"
