@@ -5,18 +5,19 @@ use rocket::serde::{Deserialize, Serialize};
 use rocket::yansi::Paint;
 use rocket_dyn_templates::{context, Template};
 use uuid::Uuid;
+use crate::api::food_api::{get_all_foods, get_foods_by_restaurant};
+use crate::api::restaurants_api::get_restaurant;
 
 #[get("/<id>")]
-pub fn index(id: i32) -> Template {
+pub async fn index(id: i32) -> Template {
+    let foods = get_foods_by_restaurant(id).await.unwrap();
+    let restaurant_name = get_restaurant(id).await.unwrap().name;
+
+
     Template::render("hbs/resto/layout", context! {
         id: id.to_string(),
-        name: id.to_string(),
-        menu: [
-            HashMap::from([("name", "Menu 1"), ("price", "42"), ("id", "1")]),
-            HashMap::from([("name", "Menu 2"), ("price", "43"), ("id", "2")]),
-            HashMap::from([("name", "Menu 3"), ("price", "44"), ("id", "3")]),
-        ],
-        cart: "Test",
+        name: restaurant_name,
+        menu: foods.0,
     })
 }
 

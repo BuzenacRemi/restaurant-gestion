@@ -14,7 +14,6 @@
         .row {
             margin-top: 75px;
             margin-left: 75px;
-
         }
         #menu {
             display: flex;
@@ -31,9 +30,9 @@
         <div class="col-sm-12 col-md-6">
             <h4>Menu Disponible :</h4>
             {{#each menu as |item|}}
-                <div class="menu-item">
-                    <p>{{item.name}} - {{item.price}} euros</p>
-                    <button type="submit" class="btn btn-primary" onclick="addToCart()">Ajouter</button>
+              <div class="menu-item">
+                 <p>{{item.food_name}} - {{item.food_price}} euros</p>
+                 <button type="submit" class="btn btn-primary" onclick="addToCart({{item.id}},1)">Ajouter</button>
                 </div>
             {{/each}}
         </div>
@@ -42,6 +41,7 @@
                 <h4>Votre Panier :</h4>
                 <iframe class ="border-0" src="/cartifram"></iframe>
             </div>
+
         </div>
     </div>
 </section>
