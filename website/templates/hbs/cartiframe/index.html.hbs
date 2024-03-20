@@ -13,44 +13,46 @@
         }
     </style>
 </head>
-{{#each cart as |food|}}
-    <div class="menu-item">
-        <p>{{food.name}} - {{food.price}} euros - Qte
-            <button type="submit" class="btn btn-primary" onclick="removeFromCart('{{food.id}}', 1)">Retirer</button>
-            {{this.quantity}}
-            <button type="submit" class="btn btn-primary" onclick="addToCart('{{food.id}}', 1)">Ajouter</button>
+<section id="commande" class="container">
+    {{#each cart as |food|}}
+        <div class="menu-item">
+            <p>{{food.food.food_name}} - {{food.food.food_price}} euros - Qte
+                <button type="submit" class="btn btn-primary" onclick="removeFromCart({{food.food.id}}, 1)">Retirer</button>
+            <p id="qty">{{this.quantity}}<p>
+            <button type="submit" class="btn btn-primary" onclick="addToCart({{food.food.id}}, 1)">Ajouter</button>
         </p>
-    </div>
-{{/each}}
+        </div>
+    {{/each}}
+</section>
 
 <script>
-     function removeFromCart(foodId, quantity) {
-         fetch('/cart/remove_from_cart', {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json',
-             },
-             body: JSON.stringify({ food_id: foodId, quantity: quantity }),
-         })
-                 .then(response => response.text())
-                 .then(data => console.log(data));
-     }
+    function removeFromCart(foodId, quantity) {
+        fetch('/cart/remove_from_cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ food_id: foodId, quantity: quantity }),
+        })
+                .then(response => response.text())
+                .then(data => console.log(data));
+        document.getElementById('qty').innerHTML = "0";
+    }
 
-     function addToCart(foodId, quantity) {
-         fetch('/cart/add_to_cart', {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json',
-             },
-             body: JSON.stringify({ food_id: foodId, quantity: quantity }),
-         })
-                 .then(response => response.text())
-                 .then(data => console.log(data));
-     }
- </script>
-
-
-
+    function addToCart(foodId, quantity) {
+        fetch('/cart/add_to_cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ food_id: foodId, quantity: quantity }),
+        })
+                .then(response => response.text())
+                .then(data => console.log(data));
+        let qte = document.getElementById('qty').innerHTML;
+        document.getElementById('qty').innerHTML = parseInt(qte) + 1;
+    }
+</script>
 
 
 

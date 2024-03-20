@@ -17,30 +17,35 @@
             flex-direction: column;
             min-height: 50vh;
         }
+
     </style>
 </head>
 <section id="commande" class="container">
-    <h3>Ma commande</h3>
-    {{#each cart as |food|}}
-        <div class="menu-item">
-            <p>{{food.food.food_name}} - {{food.food.food_price}} euros - Qte
-                <button type="submit" class="btn btn-primary" onclick="removeFromCart({{food.food.id}}, 1)">Retirer</button>
-                <p id="qty">{{this.quantity}}<p>
-                <button type="submit" class="btn btn-primary" onclick="addToCart({{food.food.id}}, 1)">Ajouter</button>
-            </p>
+    <div class="row">
+        <div class="col-12">
+            <h3>Ma commande</h3>
+            {{#each cart as |food|}}
+                <div class="menu-item">
+                    <p>{{food.food.food_name}} - {{food.food.food_price}} euros - Qte
+                        <button type="submit" class="btn btn-primary" onclick="removeFromCart({{food.food.id}}, 1)">Retirer</button>
+                        <p id="qty">{{this.quantity}}<p>
+                        <button type="submit" class="btn btn-primary" onclick="addToCart({{food.food.id}}, 1)">Ajouter</button>
+                </p>
+                </div>
+            {{/each}}
         </div>
-    {{/each}}
-</section>
-<section id="formClient" class="container">
-    <h3/>Informations client</h3>
-    <form method="post" action="/cart/checkout">
-        <div class="form-group">
-            <label for="nom">Nom</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-            <label for="adresse">Adresse</label>
-            <input type="text" class="form-control" id="address" name="address" required>
+        <div class="col-12">
+            <h3/>Informations client</h3>
+            <form method="post" action="/cart/checkout">
+                <div class="form-group">
+                    <label for="nom">Nom</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                    <label for="adresse">Adresse</label>
+                    <input type="text" class="form-control" id="address" name="address" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Valider ma commande</button>
         </div>
-        <button type="submit" class="btn btn-primary">Valider ma commande</button>
+    </div>
 </section>
 
 <script>

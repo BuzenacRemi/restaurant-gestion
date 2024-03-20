@@ -91,5 +91,4 @@ pub async fn view_cart(cookies: &CookieJar<'_>) -> Template {
     Template::render("hbs/cart/layout", context! {
         cart : context,
     })
-
 }
